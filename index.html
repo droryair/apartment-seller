@@ -35,12 +35,59 @@
 
     <div id="results"></div>
 
+
+
     <!-- Your Code Here -->
     <!-- You should start doing handlebar stuff here -->
-    <!-- Your Code Here -->
 
+    <!-- img(string), address(string), price(number), rooms(number), 
+        parking(bool), immediate(bool) contactDetails{name(string), emali(string)} -->
+
+    <script id = "house" type = "text/x-handlebars-template">
+        {{#each apartments}}
+        <div class = "result">
+
+        <img  src = "{{img}}">
+        <p class = "label l-addr"> Address:</p> <p class="address"> {{address}}</p>
+        <p class = "label l-price">Price:</p><p class="price"> {{formatCurrency price code="USD"}}</p>
+        <p class = "label l-rooms">Number Of Rooms:</p> <p class="rooms">{{rooms}}</p>
+
+        {{!-- only showing parking details if parking is --}}
+        {{#if parking}}
+        <p class="label l-park">Parking: </p> <i class="fas fa-parking"></i>
+        {{/if}}
+
+        <p class = "label l-immediate">Immediate: </p><p class = "immediate">{{immediate}}</p>
+
+        {{!-- only showing contact details if immediate is truthy: --}}
+        {{#if immediate}}
+        <p class = "label">Contact Details:</p>
+            <p > {{contactDetails.name}}</p>
+            <p > {{contactDetails.email}}</p>
+
+        {{/if}}
+
+
+        <p class="label" >Features: </p>
+        {{#each features}}
+            <p>{{this}}</p>
+        {{/each}}
+        </div>
+        {{/each}}
+
+        {{#unless apartments}}
+            <p class = "no-match">No Results Found</p>
+        {{/unless}}
+        
+    </script>
+
+
+    <!-- Your Code Here -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+    <script src="https://unpkg.com/just-handlebars-helpers@1.0.17/dist/h.min.js"></script>
+    <script src="./node_modules/currencyformatter.js/dist/currencyFormatter.js"></script>
+    <script type="text/javascript">H.registerHelpers(Handlebars);</script>
     <script src="apt-data.js"></script>
     <script src="apt-filter.js"></script>
     <script src="main.js"></script>
